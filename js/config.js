@@ -8,21 +8,18 @@ const CLASSES_CONFIG = [
         id: 'j3',
         name: 'J3',
         title: 'Класс J3',
-        path: '../j3/index.html',
         isCurrent: false
     },
     {
         id: 'j4',
         name: 'J4',
         title: 'Класс J4',
-        path: '../j4/index.html',
         isCurrent: false
     },
     {
         id: 'p3',
         name: 'P3',
         title: 'Класс P3',
-        path: '../p3/index.html',
         isCurrent: false
     }
 ];
@@ -58,6 +55,15 @@ function getCurrentClassId() {
 }
 
 /**
+ * Генерирует URL страницы класса относительно текущего URL
+ * @param {string} classId - ID класса (j3, j4, p3)
+ * @returns {string} URL страницы класса
+ */
+function generateClassUrl(classId) {
+    return new URL(`../${classId}/`, window.location.href).href;
+}
+
+/**
  * Возвращает конфигурацию с пометкой текущего класса
  * @returns {Array} Обновленный массив конфигурации
  */
@@ -65,6 +71,7 @@ function getNavigationConfig() {
     const currentClassId = getCurrentClassId();
     return CLASSES_CONFIG.map(cls => ({
         ...cls,
+        url: generateClassUrl(cls.id),
         isCurrent: cls.id === currentClassId
     }));
 }
@@ -90,5 +97,5 @@ if (document.readyState === 'loading') {
 
 // Экспорт для использования в других модулях
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { CLASSES_CONFIG, getCurrentClassId, getNavigationConfig, CERTIFICATE_BASE_URL, generateCertificateUrl, updateCertificateLink };
+    module.exports = { CLASSES_CONFIG, getCurrentClassId, generateClassUrl, getNavigationConfig, CERTIFICATE_BASE_URL, generateCertificateUrl, updateCertificateLink };
 }

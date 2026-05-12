@@ -1,10 +1,10 @@
 # Dynamic URL Generation and Navigation System Design
 
 ## Project Overview
-The graduation project consists of three class pages (J3, J4, P3) hosted on GitHub Pages with the following structure:
-- J3: https://shpschool.github.io/jun_graduation/j3/
-- J4: https://shpschool.github.io/jun_graduation/j4/
-- P3: https://shpschool.github.io/jun_graduation/p3/
+The graduation project consists of three class pages (J3, J4, P3) with links resolved relative to the current project URL:
+- J3: `j3/`
+- J4: `j4/`
+- P3: `p3/`
 
 Each page currently has:
 1. Hardcoded certificate link: `https://lms.informatics.ru/pupil/download_center/`
@@ -152,8 +152,7 @@ const CONFIG = {
     environment: getEnvironment(),
     basePath: getBasePath(),
     classes: ['j3', 'j4', 'p3'],
-    certificateUrl: 'https://lms.informatics.ru/pupil/download_center/',
-    githubPagesBase: 'https://shpschool.github.io/jun_graduation/'
+    certificateUrl: 'https://lms.informatics.ru/pupil/download_center/'
 };
 
 function getBasePath() {
@@ -219,8 +218,7 @@ const CONFIG = {
     // Certificate URL (remains constant)
     certificateUrl: 'https://lms.informatics.ru/pupil/download_center/',
     
-    // GitHub Pages base URL
-    githubPagesBase: 'https://shpschool.github.io/jun_graduation/'
+    // Internal page URLs are generated relative to the current URL
 };
 
 // Export configuration
@@ -244,7 +242,7 @@ function generateNavigation(currentClass) {
         const li = document.createElement('li');
         const a = document.createElement('a');
         
-        a.href = `${window.APP_CONFIG.basePath}${cls.path}`;
+        a.href = new URL(`../${cls.id}/`, window.location.href).href;
         a.textContent = cls.name;
         
         if (cls.id === currentClass) {
@@ -336,7 +334,7 @@ For each HTML file (j3/index.html, j4/index.html, p3/index.html):
 2. **Update certificate link** to have ID and remove hardcoded href:
 ```html
 <p>За прохождение квеста ты получаешь диплом выпускника!<br>
-Его можно найти <a id="certificate-link" href="#" target="_blank">ЗДЕСЬ</a></p>
+Его можно найти <a id="certificate-link" href="https://lms.informatics.ru/pupil/download_center/" target="_blank">ЗДЕСЬ</a></p>
 ```
 
 3. **Update script loading order**:

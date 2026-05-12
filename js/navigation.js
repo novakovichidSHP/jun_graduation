@@ -43,7 +43,7 @@
             listItem.className = NAV_ITEM_CLASS;
 
             const link = document.createElement('a');
-            link.href = cls.isCurrent ? '#' : cls.path;
+            link.href = cls.isCurrent ? window.location.href : cls.url;
             link.className = `${NAV_LINK_CLASS} ${cls.isCurrent ? NAV_LINK_ACTIVE_CLASS : ''}`;
             link.textContent = cls.name;
             link.title = cls.title;
