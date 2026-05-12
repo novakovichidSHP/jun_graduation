@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный сайт МШП</title>
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="css/style-main.css">
+    <style>
+        :root {
+            --back-color: #ffffff;
+            --main-light-color: #111827;
+        }
+
+        body {
+            align-items: stretch;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #111827;
+            font-size: 1.15rem;
+            line-height: 1.5;
+        }
+
+        h1,
+        h2,
+        h3 {
+            width: 100%;
+            color: #111827;
+        }
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            margin-top: 0.25rem;
+            font-size: 1.35rem;
+        }
+
+        section {
+            margin-top: 1.5rem;
+        }
+
+        a {
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+<body>
+    <h1>Интерактивный сайт МШП</h1>
+    <h2>для проведения выпускных открытых уроков в группах J3-J4</h2>
+
+    <section>
+        <h3><em>Назначение сайта</em></h3>
+        <p>Ученик, выполняя задания в системе LMS, получает уникальные ключи для "разблокировки" выпускного сертификата. Когда все 4 ключа от 4 блоков (или 2 ключа от 2 блоков в случае P3) заданий будут введены в специальное поле, откроется ссылка на получение сертификата.</p>
+    </section>
+
+    <section>
+        <h3><em>Инструкции по тестированию</em></h3>
+        <p>При тестировании сайта важно знать, что реализован алгоритм сохранения прогресса ученика. Поэтому для многократного тестирования можно использовать кнопку сброса прогресса в нижнем углу игровой страницы.</p>
+        <p>Также можно запускать сайт из окна браузера в режиме инкогнито.</p>
+    </section>
+
+    <section>
+        <h3><em>Ссылки на страницы по группам</em></h3>
+        <ul>
+            <li>J3: <a data-class-link="j3" href="j3/">j3/</a></li>
+            <li>J4: <a data-class-link="j4" href="j4/">j4/</a></li>
+            <li>P3: <a data-class-link="p3" href="p3/">p3/</a></li>
+        </ul>
+        <p>Эти ссылки можно вставлять в уроки соответствующих групп.</p>
+    </section>
+
+    <script>
+        const getCurrentDirectoryUrl = () => {
+            const currentUrl = new URL(window.location.href);
+            currentUrl.search = '';
+            currentUrl.hash = '';
+
+            if (!currentUrl.pathname.endsWith('/')) {
+                currentUrl.pathname = currentUrl.pathname.replace(/[^/]*$/, '');
+            }
+
+            if (currentUrl.protocol === 'http:' && !['localhost', '127.0.0.1'].includes(currentUrl.hostname)) {
+                currentUrl.protocol = 'https:';
+            }
+
+            return currentUrl;
+        };
+
+        const baseUrl = getCurrentDirectoryUrl();
+
+        document.querySelectorAll('[data-class-link]').forEach(link => {
+            const classId = link.getAttribute('data-class-link');
+            const classUrl = new URL(`${classId}/`, baseUrl).href;
+
+            link.href = classUrl;
+            link.textContent = classUrl;
+        });
+    </script>
+</body>
+</html>
