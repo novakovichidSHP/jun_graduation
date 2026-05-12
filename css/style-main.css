@@ -160,6 +160,106 @@ button:active {
     background-color: var(--main-dark-green);
 }
 
+/* Навигация между классами */
+.nav-wrapper {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.nav-wrapper h2 {
+    color: #333;
+    font-size: 1.2rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+    font-weight: 600;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--main-bright-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.nav-link:hover {
+    background-color: var(--main-dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.active {
+    background-color: var(--main-dark-green);
+    cursor: default;
+    transform: none;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.active:hover {
+    background-color: var(--main-dark-green);
+    transform: none;
+}
+
+/* Адаптивность навигации */
+@media (max-width: 768px) {
+    .nav-list {
+        gap: 1rem;
+    }
+    
+    .nav-link {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        min-width: 70px;
+    }
+    
+    .nav-wrapper {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+    
+    .nav-wrapper h2 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-list {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .nav-link {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
 @media (max-width: 1024px) {
     h1 {
         width: 90%;
