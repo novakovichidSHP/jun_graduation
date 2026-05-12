@@ -45,7 +45,7 @@
             const link = document.createElement('a');
             link.href = cls.isCurrent ? window.location.href : cls.url;
             link.className = `${NAV_LINK_CLASS} ${cls.isCurrent ? NAV_LINK_ACTIVE_CLASS : ''}`;
-            link.textContent = cls.name;
+            link.textContent = link.href;
             link.title = cls.title;
 
             if (cls.isCurrent) {

@@ -70,6 +70,30 @@ const clearProgress = () => {
     localStorage.removeItem(STORAGE_KEYS.startGame);
 };
 
+/** сброс прогресса с ручным подтверждением */
+const resetProgressWithConfirmation = () => {
+    const isConfirmed = window.confirm('Сбросить прогресс этой игры? Открытые блоки будут закрыты.');
+    if (!isConfirmed) return;
+
+    clearProgress();
+    openedBlocks = [];
+    window.location.reload();
+};
+
+/** добавление кнопки сброса прогресса */
+const addResetProgressButton = () => {
+    if (document.getElementById('reset-progress')) return;
+
+    const resetButton = document.createElement('button');
+    resetButton.id = 'reset-progress';
+    resetButton.className = 'reset-progress-button';
+    resetButton.type = 'button';
+    resetButton.textContent = 'Сбросить прогресс';
+    resetButton.addEventListener('click', resetProgressWithConfirmation);
+
+    document.body.appendChild(resetButton);
+};
+
 /** открытие блока (после ввода верного ключа или во время получения прогресса) */
 const openBlock = (keyId) => {
     let block;
@@ -135,6 +159,8 @@ const finishGame = () => {
 
 /* Запуск "игры" */
 /* ****************************************************** */
+
+addResetProgressButton();
 
 // проверка кода по нажатию кнопки
 btn.addEventListener('click', async () => {
